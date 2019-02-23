@@ -18,9 +18,7 @@ public class InputManager : MonoBehaviour {
     private Vector2 _touchOffset;
     private int _goalSum;
 
-    private int _userCurrentSum;
-
-    //private int[,] _matrix = new int[9, 10];
+    public int _currentSum;
     private Transform _grid;
 
     private Vector2 CurrentTouchPosition {
@@ -38,17 +36,17 @@ public class InputManager : MonoBehaviour {
             _grid.GetChild(0).SetSiblingIndex(_grid.childCount - i);
         }
 
-        _goalSum = new Random().Next(13, 105);
-
-        GameObject.Find("Valor").GetComponent<Text>().text = _goalSum.ToString();
+        _goalSum = new Random().Next(13, 50);
+        GameObject.Find("GoalSum").GetComponent<Text>().text = _goalSum.ToString();
     }
 
     // Update is called once per frame
     void Update() {
         if (HasInput) {
             DragOrPickup();
-        } else {
-            if (_draggingItem) DropItem();
+        } else if (_draggingItem)
+        {
+            DropItem();
         }
     }
 
@@ -79,11 +77,20 @@ public class InputManager : MonoBehaviour {
     void DropItem() {
         _draggingItem = false;
         _draggedObject.transform.localScale = new Vector3(1f, 1f, 1f);
-        _draggedObject.GetComponent<Tile>().Drop();
+        var currentPiece = _draggedObject.GetComponent<Tile>();
+        currentPiece.Drop();
+        
+        //Esse metodo precisa ser executado só quando a peça estiver substituindo um tile. senão da bosta quando o cara
+        // clica rapidinho e ela faz drag e drop de volta pro lugar original dela
+        //extrai o valor da peça e soma
+        var pieceValue =
+            int.Parse(currentPiece.GetComponent<SpriteRenderer>().sprite.name.Split('_')[1]);
+        _currentSum += pieceValue;
+        GameObject.Find("CurrentSum").GetComponent<Text>().text = _currentSum.ToString();
     }
 
     public void OnClicked(Button button) {
-        _userCurrentSum = 0;
+        _currentSum = 0;
         if (EachRowHasAtLeastOnePiece()) {
             if (TrailPiecesAreConnected()) {
                 if (SumIsValid()) {
@@ -97,7 +104,7 @@ public class InputManager : MonoBehaviour {
                     button.GetComponent<Image>().color = Color.red;
                     GameObject.Find("Acerto").GetComponent<Text>().enabled = false;
                     var successComponent = GameObject.Find("Erro").GetComponent<Text>();
-                    successComponent.text = "ERROU: " + _userCurrentSum;
+                    successComponent.text = "ERROU: " + _currentSum;
                     successComponent.enabled = true;
                 }
             }
@@ -115,7 +122,7 @@ public class InputManager : MonoBehaviour {
     }
 
     private bool SumIsValid() {
-        return _goalSum == _userCurrentSum;
+        return _goalSum == _currentSum;
     }
 
     private bool EachRowHasAtLeastOnePiece() {
@@ -139,11 +146,6 @@ public class InputManager : MonoBehaviour {
         foreach (Transform currentRow in _grid) {
             foreach (Transform currentCell in currentRow) {
                 if (currentCell.childCount > 0) {
-                    //extrai o valor da peça e soma
-                    var pieceValue =
-                        int.Parse(currentCell.GetChild(0).GetComponent<SpriteRenderer>().sprite.name.Split('_')[1]);
-                    _userCurrentSum += pieceValue;
-
                     var currentPieceFound = new Pair(int.Parse(currentRow.name), int.Parse(currentCell.name));
 
                     if (lastPieceFound.cell != 0) {
@@ -156,7 +158,6 @@ public class InputManager : MonoBehaviour {
                 }
             }
         }
-
         return true;
     }
 

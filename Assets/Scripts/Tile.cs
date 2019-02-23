@@ -22,7 +22,7 @@ public class Tile : MonoBehaviour {
 
     public void Drop() {
         transform.localScale = new Vector3(1, 1, 1);
-        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 0;
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
         Vector2 newPosition;
         if (touchingTiles.Count == 0) {
