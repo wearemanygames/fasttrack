@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour {
 
     public int _currentSum;
     private Transform _grid;
+    private Tile _currentTile;
 
     private Vector2 CurrentTouchPosition {
         get {
@@ -48,11 +49,12 @@ public class InputManager : MonoBehaviour {
         {
             DropItem();
         }
+        showCurrentSum();
     }
 
     private void DragOrPickup() {
         var inputPosition = CurrentTouchPosition;
-
+        
         if (_draggingItem) {
             _draggedObject.transform.position = inputPosition + _touchOffset;
         } else {
@@ -68,6 +70,13 @@ public class InputManager : MonoBehaviour {
                 }
             }
         }
+
+        if (dragged) {
+            //atualiza sum
+            var pieceValue =
+                int.Parse(_draggedObject.GetComponent<Tile>().GetComponent<SpriteRenderer>().sprite.name.Split('_')[1]);
+            _currentSum -= pieceValue;
+        }
     }
 
     private bool HasInput {
@@ -77,15 +86,17 @@ public class InputManager : MonoBehaviour {
     void DropItem() {
         _draggingItem = false;
         _draggedObject.transform.localScale = new Vector3(1f, 1f, 1f);
-        var currentPiece = _draggedObject.GetComponent<Tile>();
-        currentPiece.Drop();
+        _draggedObject.GetComponent<Tile>().Drop();
         
+        //atualiza sum
+        var pieceValue =
+            int.Parse(_draggedObject.GetComponent<Tile>().GetComponent<SpriteRenderer>().sprite.name.Split('_')[1]);
+        _currentSum += pieceValue;
+    }
+
+    private void showCurrentSum() {
         //Esse metodo precisa ser executado só quando a peça estiver substituindo um tile. senão da bosta quando o cara
         // clica rapidinho e ela faz drag e drop de volta pro lugar original dela
-        //extrai o valor da peça e soma
-        var pieceValue =
-            int.Parse(currentPiece.GetComponent<SpriteRenderer>().sprite.name.Split('_')[1]);
-        _currentSum += pieceValue;
         GameObject.Find("CurrentSum").GetComponent<Text>().text = _currentSum.ToString();
     }
 
