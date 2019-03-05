@@ -343,7 +343,6 @@ GameObject:
   - component: {fileID: 921091051}
   - component: {fileID: 921091056}
   - component: {fileID: 921091055}
-  - component: {fileID: 921091054}
   - component: {fileID: 921091053}
   - component: {fileID: 921091052}
   m_Layer: 5
@@ -369,8 +368,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 340, y: 125.64}
-  m_SizeDelta: {x: 480, y: 350}
+  m_AnchoredPosition: {x: 340, y: 154}
+  m_SizeDelta: {x: 320, y: 320}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &921091052
 MonoBehaviour:
@@ -411,23 +410,6 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &921091054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921091050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409065a17f16d9446a5b92c70b760853, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gamePiecePrefab: {fileID: 7074762279631122403, guid: ed7adacc45863204386cc88d136dd6bd,
-    type: 3}
-  piecesType: whiteDice
-  piecesPerStack: 5
-  palleteSize: 6
 --- !u!114 &921091055
 MonoBehaviour:
   m_ObjectHideFlags: 0
