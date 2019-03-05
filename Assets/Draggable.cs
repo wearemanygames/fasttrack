@@ -2,13 +2,16 @@
 using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
-    
-    public Transform parentToReturnTo = null;
+    public Vector3 originPosition = Vector3.zero;
+    private Transform originalParent = null;
+    public bool isOnBoard = false;
     
     public void OnBeginDrag(PointerEventData eventData) {
         Debug.Log("OnBeginDrag");
-        parentToReturnTo = transform.parent;
-        transform.SetParent(transform.parent.parent);
+        originalParent = transform.parent;
+        originPosition = transform.position;
+        transform.parent.SetAsLastSibling();
+        //transform.SetParent(transform.parent.pa);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
@@ -19,7 +22,13 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData) {
         Debug.Log("OnEndDrag");
-        transform.SetParent(parentToReturnTo);
+
+        if (!isOnBoard) {
+            transform.SetParent(originalParent);
+        }
+
+        transform.position = originPosition;
+
         GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 }

@@ -13,9 +13,9 @@ public class BoardManager : MonoBehaviour {
     void Start() {
         tableMatrix = new GameObject[boardSize, boardSize];
 
-        float yPosition = 381;
+        float yPosition = 454;
         for (int row = 0; row < boardSize; row++) {
-            float xPosition = 89.5f;
+            float xPosition = 200;
             for (int column = 0; column < boardSize; column++) {
                 var cell = Instantiate(boardTilePrefab, new Vector2(xPosition, yPosition), Quaternion.identity);
                 cell.transform.SetParent(transform);
