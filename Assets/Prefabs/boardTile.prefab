@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9056723342966620696}
   - component: {fileID: 8936921082361109090}
   m_Layer: 5
-  m_Name: boardTile-new
+  m_Name: boardTile
   m_TagString: Cell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

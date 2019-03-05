@@ -30,7 +30,7 @@ public class PiecesManager : MonoBehaviour
                 xPosition += step;
             }
         }
-        transform.localScale = new Vector3(0.7f, 0.7f, 1f);
+        //transform.localScale = new Vector3(0.7f, 0.7f, 1f);
     }
 
     // Update is called once per frame
