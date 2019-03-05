@@ -1,16 +1,35 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
-    public Vector3 originPosition = Vector3.zero;
-    private Transform originalParent = null;
+public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler {
+    public Vector3 relativeOriginPosition = Vector3.zero;
+    private Transform relativeOriginalParent = null;
+
+    public int Value {
+        get { return int.Parse(GetComponent<Image>().sprite.name); }
+    }
+
     public bool isOnBoard = false;
-    
+
+    private Vector3 originalPosition = Vector3.zero;
+    private Transform originalParent = null;
+
+    private void Start() {
+        originalPosition = transform.position;
+        originalParent = transform.parent;
+    }
+
     public void OnBeginDrag(PointerEventData eventData) {
         Debug.Log("OnBeginDrag");
-        originalParent = transform.parent;
-        originPosition = transform.position;
+        relativeOriginalParent = transform.parent;
+        relativeOriginPosition = transform.position;
+
+        transform.localScale = new Vector3(1.2f, 1.2f, 1f);
+
+        //Best way i found to simulate a sorting order
         transform.parent.SetAsLastSibling();
+
         //transform.SetParent(transform.parent.pa);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
@@ -23,12 +42,27 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnEndDrag(PointerEventData eventData) {
         Debug.Log("OnEndDrag");
 
+        transform.localScale = new Vector3(1f, 1f, 1f);
+
+        //OnEndDrag runs after OnDrop, só, if there isn't a constraint, it will always run a rollback 
         if (!isOnBoard) {
-            transform.SetParent(originalParent);
+            transform.SetParent(relativeOriginalParent);
         }
 
-        transform.position = originPosition;
+        transform.position = relativeOriginPosition;
 
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+        Debug.Log("OnPointerClick");
+        
+        //This clearly doesn't belong to this class, please, refactor!
+        if (isOnBoard) {
+            transform.position = originalPosition;
+            transform.parent = originalParent;
+            GameObject.Find("MyManager").GetComponent<MyManager>().subtractFromCurrentSum(Value);
+            isOnBoard = false;
+        }
     }
 }
