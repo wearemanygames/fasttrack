@@ -51,6 +51,10 @@ public class InputManager : MonoBehaviour {
         }
         showCurrentSum();
     }
+    
+    private bool HasInput {
+        get { return Input.GetMouseButton(0); }
+    }
 
     private void DragOrPickup() {
         var inputPosition = CurrentTouchPosition;
@@ -71,16 +75,12 @@ public class InputManager : MonoBehaviour {
             }
         }
 
-        if (dragged) {
-            //atualiza sum
-            var pieceValue =
-                int.Parse(_draggedObject.GetComponent<Tile>().GetComponent<SpriteRenderer>().sprite.name.Split('_')[1]);
-            _currentSum -= pieceValue;
-        }
-    }
-
-    private bool HasInput {
-        get { return Input.GetMouseButton(0); }
+//        if (dragged) {
+//            //atualiza sum
+//            var pieceValue =
+//                int.Parse(_draggedObject.GetComponent<Tile>().GetComponent<SpriteRenderer>().sprite.name.Split('_')[1]);
+//            _currentSum -= pieceValue;
+//        }
     }
 
     void DropItem() {

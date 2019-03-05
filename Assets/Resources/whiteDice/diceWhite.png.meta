@@ -2,14 +2,14 @@ fileFormatVersion: 2
 guid: 95252067a665023439c55630dce4ac2d
 TextureImporter:
   fileIDToRecycleName:
-    21300000: diceWhite_6
-    21300002: diceWhite_1
-    21300004: diceWhite_2
-    21300006: diceWhite_5
-    21300008: diceWhite_3
-    21300010: diceWhite_4
+    21300000: 6
+    21300002: 1
+    21300004: 2
+    21300006: 5
+    21300008: 3
+    21300010: 4
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 7
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -112,7 +112,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: diceWhite_6
+      name: 6
       rect:
         serializedVersion: 2
         x: 0
@@ -132,7 +132,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diceWhite_1
+      name: 1
       rect:
         serializedVersion: 2
         x: 64
@@ -152,7 +152,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diceWhite_2
+      name: 2
       rect:
         serializedVersion: 2
         x: 128
@@ -172,7 +172,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diceWhite_5
+      name: 5
       rect:
         serializedVersion: 2
         x: 0
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diceWhite_3
+      name: 3
       rect:
         serializedVersion: 2
         x: 64
@@ -212,7 +212,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diceWhite_4
+      name: 4
       rect:
         serializedVersion: 2
         x: 128
@@ -234,7 +234,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4a449ccedddec64468ebd8c6108ef340
     vertices: []
     indices: 
     edges: []
