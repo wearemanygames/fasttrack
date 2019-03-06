@@ -6,6 +6,19 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     
     private Draggable draggedItem;
     
+    public Pair matrixPosition;
+    
+    [System.Serializable]
+    public struct Pair {
+        public int row;
+        public int column;
+
+        public Pair(int row, int column) {
+            this.row = row;
+            this.column = column;
+        }
+    }
+    
     public void OnDrop(PointerEventData eventData) {
         Debug.Log(eventData.pointerDrag.name + " was dropped on " + gameObject.name);
         
@@ -14,9 +27,10 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             draggedItem.transform.SetParent(transform);
             draggedItem.relativeOriginPosition = transform.position;
             if (!draggedItem.isOnBoard) {
-                GameObject.Find("MyManager").GetComponent<MyManager>().addToCurrentSum(draggedItem.Value);
+                GameObject.Find("GameManager").GetComponent<GameManager>().addToCurrentSum(draggedItem.Value);
             }
             draggedItem.isOnBoard = true;
+            GameObject.Find("Board").GetComponent<BoardManager>().overrideCurrentHead(gameObject);
         }
     }
 

@@ -27,11 +27,12 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         transform.localScale = new Vector3(1.2f, 1.2f, 1f);
 
-        //Best way i found to simulate a sorting order
+        //Best way i found to simulate a sorting order. ATENTION: May break matrix positions
         transform.parent.SetAsLastSibling();
 
         //transform.SetParent(transform.parent.pa);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
+        GameObject.Find("Board").GetComponent<BoardManager>().highLightValidOptions();
     }
 
     public void OnDrag(PointerEventData eventData) {
@@ -61,7 +62,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (isOnBoard) {
             transform.position = originalPosition;
             transform.parent = originalParent;
-            GameObject.Find("MyManager").GetComponent<MyManager>().subtractFromCurrentSum(Value);
+            GameObject.Find("GameManager").GetComponent<GameManager>().subtractFromCurrentSum(Value);
             isOnBoard = false;
         }
     }

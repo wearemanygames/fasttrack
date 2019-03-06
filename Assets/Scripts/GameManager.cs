@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MyManager : MonoBehaviour {
-    public BoardManager board;
+public class GameManager : MonoBehaviour {
+    //public BoardManager board;
     public Text goalSumText;
     public Text currentSumText;
     public Button finishButton;
+    public GameObject board;
+    public GameObject hand;
 
     private int currentSum = 0;
  
