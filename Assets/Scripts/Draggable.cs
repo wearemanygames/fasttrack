@@ -53,6 +53,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         transform.position = relativeOriginPosition;
 
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+        GameObject.Find("Board").GetComponent<BoardManager>().lightOffValidOptions();
     }
 
     public void OnPointerClick(PointerEventData eventData) {

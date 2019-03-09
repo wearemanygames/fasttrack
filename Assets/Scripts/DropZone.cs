@@ -30,6 +30,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
                 GameObject.Find("GameManager").GetComponent<GameManager>().addToCurrentSum(draggedItem.Value);
             }
             draggedItem.isOnBoard = true;
+            
             GameObject.Find("Board").GetComponent<BoardManager>().overrideCurrentHead(gameObject);
         }
     }

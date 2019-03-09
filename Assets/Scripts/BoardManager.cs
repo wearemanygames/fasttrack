@@ -43,6 +43,16 @@ public class BoardManager : MonoBehaviour {
         tableMatrix[dropZone.matrixPosition.row, dropZone.matrixPosition.column + 1].GetComponent<Image>().color = Color.green;
         tableMatrix[dropZone.matrixPosition.row, dropZone.matrixPosition.column - 1].GetComponent<Image>().color = Color.green;
     }
+    
+    public void lightOffValidOptions() {
+        var dropZone = currentHead.GetComponent<DropZone>();
+        
+        //Fix: Calculate adjacent points OR always check if the gameObject has childCount > 0, if it does, do nothing
+        tableMatrix[dropZone.matrixPosition.row + 1, dropZone.matrixPosition.column].GetComponent<Image>().color = Color.white;
+        tableMatrix[dropZone.matrixPosition.row - 1, dropZone.matrixPosition.column].GetComponent<Image>().color = Color.white;
+        tableMatrix[dropZone.matrixPosition.row, dropZone.matrixPosition.column + 1].GetComponent<Image>().color = Color.white;
+        tableMatrix[dropZone.matrixPosition.row, dropZone.matrixPosition.column - 1].GetComponent<Image>().color = Color.white;
+    }
 
     public void overrideCurrentHead(GameObject head) {
         currentHead = head;
